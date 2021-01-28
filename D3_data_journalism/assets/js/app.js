@@ -71,8 +71,7 @@ d3.csv("assets/data/data.csv").then(function (Data) {
   // Format chart
 
   // Create circles
-  // append circles to data points
-
+  // Append circles to data points
   var circlesGroup = chartGroup.selectAll("circle")
     .data(Data)
     .enter()
@@ -80,8 +79,10 @@ d3.csv("assets/data/data.csv").then(function (Data) {
     .attr("cx", d => xAgeScale(d.age))
     .attr("cy", d => ySmokeScale(d.smokes))
     .attr("r", "15")
-    .attr("fill", "lightblue");
+    // .attr("fill", "lightblue")
+    .classed("stateCircle", true);
 
+    // Append text to data points
   var circlesGroup = chartGroup.selectAll(null)
     .data(Data)
     .enter()
@@ -91,8 +92,6 @@ d3.csv("assets/data/data.csv").then(function (Data) {
     .attr("dy", ".35em")
     .text(d => d.abbr)
     .classed("stateText", true)
-    .attr("fill", "blue");
-
 });
 
 // transition on page load
