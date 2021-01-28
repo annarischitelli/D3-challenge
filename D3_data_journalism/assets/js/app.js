@@ -41,18 +41,18 @@ d3.csv("assets/data/data.csv").then(function (Data) {
   });
 
   // Create scaling functions
-  var xSmokeScale = d3.scaleTime()
-    .domain(d3.extent(Data, d => d.smokes))
+  var xAgeScale = d3.scaleLinear()
+    .domain([0, d3.max(Data, d => d.age)])
     .range([0, width]);
 
-  var yAgeScale = d3.scaleLinear()
-    .domain([0, d3.max(Data, d => d.age)])
+  var ySmokeScale = d3.scaleLinear()
+    .domain(d3.extent(Data, d => d.smokes))
     .range([height, 0]);
 
   // Create axis functions
-  var bottomAxis = d3.axisBottom(xSmokeScale)
-    // .tickFormat(d3.timeFormat("%d-%b-%Y"));
-  var leftAxis = d3.axisLeft(yAgeScale);
+  var bottomAxis = d3.axisBottom(xAgeScale)
+  // .tickFormat(d3.timeFormat("%d-%b-%Y"));
+  var leftAxis = d3.axisLeft(ySmokeScale);
 
   // Add x-axis
   chartGroup.append("g")
@@ -68,16 +68,28 @@ d3.csv("assets/data/data.csv").then(function (Data) {
   // Format chart
   // Append axes titles
   chartGroup.append("text")
-  .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
+    .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
     // .classed("age text", true)
     .text("Age");
 
   chartGroup.append("text")
-  .attr("transform", `translate(${width / 2}, ${height + margin.top + 37})`)
+    .attr("transform", `translate(${width / 2}, ${height + margin.top + 37})`)
     // .classed("smokes text", true)
     .text("Smokers");
 
   // Create circles
+  // append circles to data points
+  // Note that I've saved these into a new variable - now I
+  // can reference these elements and their bound data when needed!
+  var circlesGroup = chartGroup.selectAll("circle")
+    .data(Data)
+    .enter()
+    .append("circle")
+    .attr("cx", (d, i) => xAgeScale(i))
+    .attr("cy", d => ySmokeScale(d))
+    .attr("r", "5")
+    .attr("fill", "red");
+
   // Label axis
 
 });
