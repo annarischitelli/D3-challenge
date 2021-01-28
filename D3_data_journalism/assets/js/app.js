@@ -67,34 +67,55 @@ d3.csv("assets/data/data.csv").then(function (Data) {
     .call(leftAxis);
 
   // Format chart
-  // Append axes titles
-  chartGroup.append("text")
-    .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
-    // .classed("age text", true)
-    .text("Age");
-
-  chartGroup.append("text")
-    .attr("transform", `translate(${width / 2}, ${height + margin.top + 37})`)
-    // .classed("smokes text", true)
-    .text("Smokers");
 
   // Create circles
   // append circles to data points
-  // Note that I've saved these into a new variable - now I
-  // can reference these elements and their bound data when needed!
+ 
   var circlesGroup = chartGroup.selectAll("circle")
     .data(Data)
     .enter()
     .append("circle")
-    .attr("cx", (d, i) => xAgeScale(i))
-    .attr("cy", d => ySmokeScale(d))
+    .attr("cx", d=> xAgeScale(d.age))
+    .attr("cy", d => ySmokeScale(d.smokes))
     .attr("r", "5")
     .attr("fill", "blue");
+
+    var circlesGroup = chartGroup.selectAll(null)
+    .data(Data)
+    .enter()
+    .append("text")
+    .attr("x", d => xAgeScale(d.age))
+    .attr("y", d => ySmokeScale(d.smokes))
+    .attr("dy", ".35em")
+    .text(d => d.abbr)
+    .classed("stateText", true)
+    .attr("fill", "blue");
+    
 });
 
 
 
-  // Label axis
+// Label axis
+// X axis label
+chartGroup.append("text")
+  .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top + 20})`)
+  .attr("text-anchor", "middle")
+  .attr("font-size", "16px")
+  .attr("fill", "blue")
+  .attr("class", "axisText")
+  .style("text-anchor", "middle")
+  .text("Age");
+
+// Y axis label
+chartGroup.append("text")
+  .attr("transform", "rotate(-90)")
+  .attr("x", 0 - chartHeight / 2)
+  .attr("y", 0 - margin.left + 50)
+  .attr("class", "axisText")
+  .attr("fill", 'blue')
+  .style("text-anchor", "middle")
+  .text("Smokers(%)");
+
 
 
 // BONUS
