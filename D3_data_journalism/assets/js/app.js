@@ -39,6 +39,7 @@ d3.csv("assets/data/data.csv").then(function (Data) {
     data.age = +data.age;
     data.smokes = +data.smokes;
   });
+  // console.log(Data)
 
   // Create scaling functions
   var xAgeScale = d3.scaleLinear()
@@ -88,8 +89,31 @@ d3.csv("assets/data/data.csv").then(function (Data) {
     .attr("cx", (d, i) => xAgeScale(i))
     .attr("cy", d => ySmokeScale(d))
     .attr("r", "5")
-    .attr("fill", "red");
+    .attr("fill", "blue");
+});
+
 
   // Label axis
 
-});
+
+
+
+// BONUS
+//    // Step 1: Initialize Tooltip
+//    var toolTip = d3.tip()
+//    .attr("class", "tooltip")
+//    .offset([80, -60])
+//    .html(function(d) {
+//      return (`<strong>${dateFormatter(d.date)}<strong><hr>${d.medals}
+//      medal(s) won`);
+//    });
+//  // Step 2: Create the tooltip in chartGroup.
+//  chartGroup.call(toolTip);
+//  // Step 3: Create "mouseover" event listener to display tooltip
+//  circlesGroup.on("mouseover", function(d) {
+//    toolTip.show(d, this);
+//  })
+//  // Step 4: Create "mouseout" event listener to hide tooltip
+//    .on("mouseout", function(d) {
+//      toolTip.hide(d);
+//    });
