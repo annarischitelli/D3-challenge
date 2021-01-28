@@ -54,19 +54,16 @@ d3.csv("assets/data/data.csv").then(function (Data) {
   var bottomAxis = d3.axisBottom(xAgeScale)
   var leftAxis = d3.axisLeft(ySmokeScale);
 
-  // Add x-axis
+  // Add x-axis to the bottom of the display
   chartGroup.append("g")
     .attr("transform", `translate(0, ${height})`)
-    .attr("text-anchor", "middle")
-    .attr("font-size", "16px")
-    .call(bottomAxis)
-    ;
+    .call(bottomAxis);
 
   // Add y-axis to the left side of the display
   chartGroup.append("g")
     .call(leftAxis);
 
-  // Format chart
+  // BUILD CHART
 
   // Create circles
   // Append circles to data points
@@ -80,7 +77,7 @@ d3.csv("assets/data/data.csv").then(function (Data) {
     // .attr("fill", "lightblue")
     .classed("stateCircle", true);
 
-    // Append text to data points
+  // Append text to data points
   var circlesGroup = chartGroup.selectAll(null)
     .data(Data)
     .enter()
@@ -99,22 +96,22 @@ chartGroup.selectAll("circle")
   .attr("cx", d => xAgeScale(d.age))
   .attr("cy", d => ySmokeScale(d.smokes));
 
-// BONUS
-//    // Step 1: Initialize Tooltip
-//    var toolTip = d3.tip()
-//    .attr("class", "tooltip")
-//    .offset([80, -60])
-//    .html(function(d) {
-//      return (`<strong>${dateFormatter(d.date)}<strong><hr>${d.medals}
-//      medal(s) won`);
-//    });
-//  // Step 2: Create the tooltip in chartGroup.
-//  chartGroup.call(toolTip);
-//  // Step 3: Create "mouseover" event listener to display tooltip
-//  circlesGroup.on("mouseover", function(d) {
-//    toolTip.show(d, this);
-//  })
-//  // Step 4: Create "mouseout" event listener to hide tooltip
-//    .on("mouseout", function(d) {
-//      toolTip.hide(d);
-//    });
+
+
+  // BONUS
+// var toolTip = d3.select("body")
+//   .append("div")
+//   .classed("tooltip", true);
+
+// // Step 2: Create "mouseover" event listener to display tooltip
+//   chartGroup.on("mouseover", function (d) {
+//     toolTip.style("display", "block")
+//       .html(
+//         `<strong>${d.state}<strong><hr>${d.age} Median Age`)
+//       .style("left", d3.event.pageX + "px")
+//       .style("top", d3.event.pageY + "px");
+//   })
+//     // Step 3: Create "mouseout" event listener to hide tooltip
+//     .on("mouseout", function () {
+//       toolTip.style("display", "none");
+//     });
