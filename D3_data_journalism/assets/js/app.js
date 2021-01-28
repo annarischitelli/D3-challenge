@@ -62,9 +62,8 @@ d3.csv("assets/data/data.csv").then(function (Data) {
   chartGroup.append("text")
     .attr(
       "transform",
-      "translate(" + width / 2 + " ," + (height + margin.top + 30) + ")"
-    )
-    .attr("class", "axis-text")
+      "translate(" + width /2 + " ," + (height + margin.top + 30) + ")")
+    .attr("atext", true)
     .text("Median Age (Years)");
 
   // Add y-axis to the left side of the display
@@ -76,7 +75,7 @@ d3.csv("assets/data/data.csv").then(function (Data) {
     .attr("y", 0 - margin.left)
     .attr("x", 0 - height /1.5)
     .attr("dy", "1em")
-    .attr("class", "axis-text")
+    .attr("atext", true)
     .text("Percentage of Smokers (%)")
 
   // BUILD CHART
