@@ -74,7 +74,7 @@ d3.csv("assets/data/data.csv").then(function (Data) {
   chartGroup.append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", 0 - margin.left)
-    .attr("x", 0 - height / 2)
+    .attr("x", 0 - height /1.5)
     .attr("dy", "1em")
     .attr("class", "axis-text")
     .text("Percentage of Smokers (%)")
