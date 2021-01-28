@@ -52,15 +52,17 @@ d3.csv("assets/data/data.csv").then(function (Data) {
 
   // Create axis functions
   var bottomAxis = d3.axisBottom(xAgeScale)
-  // .tickFormat(d3.timeFormat("%d-%b-%Y"));
   var leftAxis = d3.axisLeft(ySmokeScale);
 
   // Add x-axis
   chartGroup.append("g")
     .attr("transform", `translate(0, ${height})`)
-    .call(bottomAxis);
+    .attr("text-anchor", "middle")
+    .attr("font-size", "16px")
+    .call(bottomAxis)
+    ;
 
-  // Add y1-axis to the left side of the display
+  // Add y-axis to the left side of the display
   chartGroup.append("g")
     // Define the color of the axis text
     .classed("green", true)
@@ -70,17 +72,17 @@ d3.csv("assets/data/data.csv").then(function (Data) {
 
   // Create circles
   // append circles to data points
- 
+
   var circlesGroup = chartGroup.selectAll("circle")
     .data(Data)
     .enter()
     .append("circle")
-    .attr("cx", d=> xAgeScale(d.age))
+    .attr("cx", d => xAgeScale(d.age))
     .attr("cy", d => ySmokeScale(d.smokes))
-    .attr("r", "5")
-    .attr("fill", "blue");
+    .attr("r", "15")
+    .attr("fill", "lightblue");
 
-    var circlesGroup = chartGroup.selectAll(null)
+  var circlesGroup = chartGroup.selectAll(null)
     .data(Data)
     .enter()
     .append("text")
@@ -90,33 +92,15 @@ d3.csv("assets/data/data.csv").then(function (Data) {
     .text(d => d.abbr)
     .classed("stateText", true)
     .attr("fill", "blue");
-    
+
 });
 
-
-
-// Label axis
-// X axis label
-chartGroup.append("text")
-  .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top + 20})`)
-  .attr("text-anchor", "middle")
-  .attr("font-size", "16px")
-  .attr("fill", "blue")
-  .attr("class", "axisText")
-  .style("text-anchor", "middle")
-  .text("Age");
-
-// Y axis label
-chartGroup.append("text")
-  .attr("transform", "rotate(-90)")
-  .attr("x", 0 - chartHeight / 2)
-  .attr("y", 0 - margin.left + 50)
-  .attr("class", "axisText")
-  .attr("fill", 'blue')
-  .style("text-anchor", "middle")
-  .text("Smokers(%)");
-
-
+// transition on page load
+chartGroup.selectAll("circle")
+  .transition()
+  .duration(50000)
+  .attr("cx", d => xAgeScale(d.age))
+  .attr("cy", d => ySmokeScale(d.smokes));
 
 // BONUS
 //    // Step 1: Initialize Tooltip
