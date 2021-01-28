@@ -34,7 +34,11 @@ d3.csv("assets/data/data.csv").then(function(Data) {
     // Make sure data is working
     console.log(Data);
     
-// Create function that will pull required chart data
+// Create function that will pull required chart data (Smokers vs. Age)
+  Data.forEach(function(data) {
+    data.age = +data.age;
+    data.smokes = +data.smokes;
+  });
 
 // Format chart
 // Create circles
