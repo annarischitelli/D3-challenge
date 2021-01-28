@@ -30,18 +30,44 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Pull in D3 File from CVS
-d3.csv("assets/data/data.csv").then(function(Data) {
-    // Make sure data is working
-    console.log(Data);
-    
-// Create function that will pull required chart data (Smokers vs. Age)
-  Data.forEach(function(data) {
+d3.csv("assets/data/data.csv").then(function (Data) {
+  // Make sure data is working
+  console.log(Data);
+
+  // Create function that will pull required chart data (Smokers vs. Age)
+  Data.forEach(function (data) {
     data.age = +data.age;
     data.smokes = +data.smokes;
   });
 
-// Format chart
-// Create circles
-// Label axis
+  // Create scaling functions
+  var xSmokeScale = d3.scaleTime()
+    .domain(d3.extent(Data, d => d.smokes))
+    .range([0, width]);
+
+  var yAgeScale = d3.scaleLinear()
+    .domain([0, d3.max(Data, d => d.age)])
+    .range([height, 0]);
+
+  // Create axis functions
+  var bottomAxis = d3.axisBottom(xSmokeScale)
+    // .tickFormat(d3.timeFormat("%d-%b-%Y"));
+  var leftAxis = d3.axisLeft(yAgeScale);
+
+  // Add x-axis
+  chartGroup.append("g")
+    .attr("transform", `translate(0, ${height})`)
+    .call(bottomAxis);
+
+  // Add y1-axis to the left side of the display
+  chartGroup.append("g")
+    // Define the color of the axis text
+    .classed("green", true)
+    .call(leftAxis);
+
+
+  // Format chart
+  // Create circles
+  // Label axis
 
 });
