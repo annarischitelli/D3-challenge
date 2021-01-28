@@ -30,12 +30,12 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Pull in D3 File from CVS
-d3.csv("./data.csv").then(function(Data) {
+d3.csv("./assets/data/data.csv").then(function(Data) {
     // Make sure data is working
     console.log(Data);
     
-
 // Create function that will pull required chart data
+
 // Format chart
 // Create circles
 // Label axis
