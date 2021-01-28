@@ -43,7 +43,7 @@ d3.csv("assets/data/data.csv").then(function (Data) {
 
   // Create scaling functions
   var xAgeScale = d3.scaleLinear()
-    .domain([0, d3.max(Data, d => d.age)])
+    .domain([28, d3.max(Data, d => d.age)])
     .range([0, width]);
 
   var ySmokeScale = d3.scaleLinear()
@@ -64,8 +64,6 @@ d3.csv("assets/data/data.csv").then(function (Data) {
 
   // Add y-axis to the left side of the display
   chartGroup.append("g")
-    // Define the color of the axis text
-    .classed("green", true)
     .call(leftAxis);
 
   // Format chart
