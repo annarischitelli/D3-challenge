@@ -65,8 +65,18 @@ d3.csv("assets/data/data.csv").then(function (Data) {
     .classed("green", true)
     .call(leftAxis);
 
-
   // Format chart
+  // Append axes titles
+  chartGroup.append("text")
+  .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
+    // .classed("age text", true)
+    .text("Age");
+
+  chartGroup.append("text")
+  .attr("transform", `translate(${width / 2}, ${height + margin.top + 37})`)
+    // .classed("smokes text", true)
+    .text("Smokers");
+
   // Create circles
   // Label axis
 
